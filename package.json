@@ -2,7 +2,7 @@
   "name": "differencecalculator",
   "version": "1.0.0",
   "description": "second Hexlet project",
-  "main": "index.js",
+  "main": "bin/index.js",
   "type": "module",
   "scripts": {
     "test": "npx -n --experimental-vm-modules jest"
@@ -22,13 +22,21 @@
   },
   "homepage": "https://github.com/kostenkoslava/frontend-project-lvl2#readme",
   "devDependencies": {
-    "commander": "^6.1.0",
+    "@babel/parser": "^7.12.3",
     "@jest/globals": "^26.4.2",
+    "commander": "^6.1.0",
+    "core-js": "^3.6.4",
+    "debug": "^4.1.1",
+    "documentation": "^13.0.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.2",
+    "get-installed-path": "^4.0.8",
     "jest": "^26.4.2",
     "jest-cli": "^26.4.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20"
   }
 }
