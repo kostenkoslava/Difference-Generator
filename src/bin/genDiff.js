@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import gendiff from '../index.js'
+import genDiff from '../index.js'
 const program = new Command();
 program
   .version('0.0.1', '-V, --version', 'output the version number')
@@ -9,7 +9,7 @@ program
   .arguments('<filepath1> <filepath2>',)
   .helpOption('-h, --help', 'output usage information')
   .option('-f, --format [type]', 'output format')
-  .action(gendiff(filepath1, filepath2))
+  .action(genDiff(filepath1, filepath2))
 
 // must be before .parse()
 
