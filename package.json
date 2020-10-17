@@ -24,7 +24,6 @@
   "devDependencies": {
     "@babel/parser": "^7.12.3",
     "@jest/globals": "^26.4.2",
-    "commander": "^6.1.0",
     "core-js": "^3.6.4",
     "debug": "^4.1.1",
     "documentation": "^13.0.0",
@@ -37,6 +36,7 @@
     "jest-cli": "^26.4.2"
   },
   "dependencies": {
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "commander": "^6.1.0"
   }
 }

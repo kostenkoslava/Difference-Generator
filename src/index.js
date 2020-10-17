@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 
 import path from 'path';
 import fs from 'fs';
@@ -6,7 +7,6 @@ import _ from 'lodash';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 const getFixturePath = (file) => path.resolve(__dirname, '..', '__fixtures__', file);
 const genDiff = (filename1, filename2) => {
@@ -17,12 +17,23 @@ const genDiff = (filename1, filename2) => {
   const keys1 = Object.keys(file1);
   const keys2 = Object.keys(file2);
   const keys = _.union(keys1, keys2).sort();
-  const result = {};
+  const result = ['{\n'];
+  const added = '  + ';
+  const deleted = '  - ';
+  const unchanged = '    ';
   keys.forEach((key) => {
     if (!_.has(file1, key)) {
-      result[`+ ${key}`] = file2[key]
+      result.push(added, key, ': ', String(file2[key]), '\n');
+    } else if (!_.has(file2, key)) {
+      result.push(deleted, key, ': ', String(file1[key]), '\n');
+    } else if (file1[key] !== file2[key]) {
+      result.push(deleted, key, ': ', String(file1[key]), '\n');
+      result.push(added, key, ': ', String(file2[key]), '\n');
+    } else {
+      result.push(unchanged, key, ': ', String(file1[key]), '\n');
     }
-  })
-  console.log(result)
-}
+  });
+  result.push('}');
+  return result.join('');
+};
 export default genDiff;
