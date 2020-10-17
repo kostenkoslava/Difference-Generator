@@ -1,9 +1,12 @@
 {
-  "name": "differencecalculator",
+  "name": "gendiff-kostenko",
   "version": "1.0.0",
   "description": "second Hexlet project",
   "main": "bin/index.js",
   "type": "module",
+  "bin": {
+    "genDiff": "src/bin/genDiff.js"
+  },
   "scripts": {
     "test": "npx -n --experimental-vm-modules jest"
   },

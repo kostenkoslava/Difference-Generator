@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import path from 'path';
+import os from 'os';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import _ from 'lodash';
@@ -8,7 +9,7 @@ import _ from 'lodash';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const getFixturePath = (file) => path.resolve(__dirname, '..', '__fixtures__', file);
+const getFixturePath = (file) => path.join(process.cwd(), file);
 const genDiff = (filename1, filename2) => {
   const filePath1 = getFixturePath(filename1);
   const filePath2 = getFixturePath(filename2);
