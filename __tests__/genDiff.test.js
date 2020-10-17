@@ -1,6 +1,8 @@
 import { expect } from '@jest/globals';
+import path from 'path';
 import genDiff from '../src/index';
 
+const getFixturePath = (file) => path.join('__fixtures__', file);
 test('main flow', () => {
   const expectedResult = `{
   - follow: false
@@ -10,6 +12,8 @@ test('main flow', () => {
   + timeout: 20
   + verbose: true
 }`;
-  const result = genDiff('file1.json', 'file2.json');
+  const filePath1 = getFixturePath('file1.json');
+  const filePath2 = getFixturePath('file2.json');
+  const result = genDiff(filePath1, filePath2);
   expect(result).toEqual(expectedResult);
 });
