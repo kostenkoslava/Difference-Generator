@@ -1,9 +1,9 @@
 name: hexlet-check
 
+# Trigger the workflow on push or pull request
 on:
-  push:
-    branches:
-      - master
+  - push
+  - pull_request
 
 jobs:
   build:
