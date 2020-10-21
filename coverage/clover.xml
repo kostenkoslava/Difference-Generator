@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1602962085411" clover="3.2.0">
-  <project timestamp="1602962085412" name="All files">
+<coverage generated="1603314820055" clover="3.2.0">
+  <project timestamp="1603314820056" name="All files">
     <metrics statements="35" coveredstatements="35" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2" elements="45" coveredelements="45" complexity="0" loc="35" ncloc="35" packages="1" files="1" classes="1"/>
     <file name="index.js" path="/home/slava/Documents/projects/frontend-project-lvl2/src/index.js">
       <metrics statements="35" coveredstatements="35" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
@@ -41,4 +41,4 @@
       <line num="35" count="1" type="stmt"/>
     </file>
   </project>
-</coverage> 
+</coverage>
