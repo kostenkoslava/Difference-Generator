@@ -25,8 +25,6 @@
   },
   "homepage": "https://github.com/kostenkoslava/frontend-project-lvl2#readme",
   "devDependencies": {
-    "@babel/parser": "^7.12.3",
-    "@jest/globals": "^26.4.2",
     "core-js": "^3.6.4",
     "debug": "^4.1.1",
     "documentation": "^13.0.0",
@@ -35,11 +33,13 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.2",
     "get-installed-path": "^4.0.8",
-    "jest": "^26.4.2",
-    "jest-cli": "^26.4.2"
+    "jest": "^26.6.0",
+    "jest-cli": "^26.6.0"
   },
   "dependencies": {
-    "lodash": "^4.17.20",
-    "commander": "^6.1.0"
+    "@jest/globals": "^26.6.0",
+    "commander": "^6.1.0",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.20"
   }
 }
