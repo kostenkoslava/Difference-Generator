@@ -26,7 +26,7 @@ const genDiff = (filename1, filename2) => {
       result.push(deleted, key, ': ', String(file1[key]), '\n');
       result.push(added, key, ': ', String(file2[key]), '\n');
     } else {
-      result.push(unchanged, key, ': ', String(file1[key]), '\n');
+      result.push(unchanged, key, ': ', String(beforeFile[key]), '\n');
     }
   });
   result.push('}');
