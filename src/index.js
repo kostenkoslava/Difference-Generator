@@ -4,27 +4,27 @@ import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
 
-const getFixturePath = (file) => path.join(process.cwd(), file);
-const genDiff = (filename1, filename2) => {
-  const filePath1 = getFixturePath(filename1);
-  const filePath2 = getFixturePath(filename2);
-  const file1 = JSON.parse(fs.readFileSync(filePath1, { encoding: 'utf-8' }));
-  const file2 = JSON.parse(fs.readFileSync(filePath2, { encoding: 'utf-8' }));
-  const keys1 = Object.keys(file1);
-  const keys2 = Object.keys(file2);
-  const keys = _.union(keys1, keys2).sort();
+const getFixturePath = (file) => path.resolve(process.cwd(), file);
+const genDiff = (beforeName, afterName) => {
+  const beforePath = getFixturePath(beforeName);
+  const afterPath = getFixturePath(afterName);
+  const beforeFile = JSON.parse(fs.readFileSync(beforePath, { encoding: 'utf-8' }));
+  const afterFile = JSON.parse(fs.readFileSync(afterPath, { encoding: 'utf-8' }));
+  const beforeKeys = Object.keys(beforeFile);
+  const afterKeys = Object.keys(afterFile);
+  const uniqueKeys = _.union(beforeKeys, afterKeys).sort();
   const result = ['{\n'];
   const added = '  + ';
   const deleted = '  - ';
   const unchanged = '    ';
-  keys.forEach((key) => {
-    if (!_.has(file1, key)) {
-      result.push(added, key, ': ', String(file2[key]), '\n');
-    } else if (!_.has(file2, key)) {
-      result.push(deleted, key, ': ', String(file1[key]), '\n');
-    } else if (file1[key] !== file2[key]) {
-      result.push(deleted, key, ': ', String(file1[key]), '\n');
-      result.push(added, key, ': ', String(file2[key]), '\n');
+  uniqueKeys.forEach((key) => {
+    if (!_.has(beforeFile, key)) {
+      result.push(added, key, ': ', String(afterFile[key]), '\n');
+    } else if (!_.has(afterFile, key)) {
+      result.push(deleted, key, ': ', String(beforeFile[key]), '\n');
+    } else if (beforeFile[key] !== afterFile[key]) {
+      result.push(deleted, key, ': ', String(beforeFile[key]), '\n');
+      result.push(added, key, ': ', String(afterFile[key]), '\n');
     } else {
       result.push(unchanged, key, ': ', String(beforeFile[key]), '\n');
     }

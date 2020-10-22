@@ -1,19 +1,19 @@
 import { expect } from '@jest/globals';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import genDiff from '../src/index';
+import fs from 'fs';
 
-const getFixturePath = (file) => path.join('__fixtures__', file);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), { encoding: 'utf-8' });
 test('main flow', () => {
-  const expectedResult = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-  const filePath1 = getFixturePath('file1.json');
-  const filePath2 = getFixturePath('file2.json');
-  const result = genDiff(filePath1, filePath2);
-  expect(result).toEqual(expectedResult);
+  const jsonComparingResult = readFile('jsonComparingResult.txt').toString().trim();
+  console.log(jsonComparingResult)
+  const before = getFixturePath('before.json');
+  const after = getFixturePath('after.json');
+  const result = genDiff(before, after);
+  expect(result).toBe(jsonComparingResult);
 });
