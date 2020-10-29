@@ -4,7 +4,7 @@ import { expect } from '@jest/globals';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import genDiff from '../src/index';
+import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,5 +23,5 @@ test('yml files comparing', () => {
   const before = getFixturePath('before.yml');
   const after = getFixturePath('after.yml');
   const result = genDiff(before, after);
-  expect(result).toEqual(expected);
+  expect(result).toBe(expected);
 });
