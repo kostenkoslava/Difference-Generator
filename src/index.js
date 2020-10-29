@@ -4,7 +4,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers.js';
-import format from './format.js';
+import formatLoader from './formatters/index.js';
 
 const getPath = (file) => path.resolve(process.cwd(), file);
 const readFile = (filename) => fs.readFileSync(getPath(filename), { encoding: 'utf-8' });
@@ -47,6 +47,7 @@ const genDiff = (beforePath, afterPath, formatter = 'stylish') => {
   const beforeData = parse(readFile(beforePath), path.extname(beforePath));
   const afterData = parse(readFile(afterPath), path.extname(afterPath));
   const diffTree = findDiffs(beforeData, afterData);
-  return (formatter === 'stylish') ? format(diffTree) : null;
+  const format = formatLoader(formatter);
+  return format(diffTree);
 };
 export default genDiff;
