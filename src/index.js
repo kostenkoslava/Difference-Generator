@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import parser from './parser.js';
 import format from './formatters/index.js';
-import findDiffs from './findDiffs';
+import findDiffs from './findDiffs.js';
 
 const getPath = (file) => path.resolve(process.cwd(), file);
 const readFile = (filename) => fs.readFileSync(getPath(filename), { encoding: 'utf-8' });
