@@ -16,3 +16,13 @@ npm install gendiff-kostenko
 ```
 
 [![asciicast](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN.svg)](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN)
+
+## Comparing files with default Stylish Format
+JSON
+[![asciicast](https://asciinema.org/a/Jb8YBbs9eihDMaMiRvNDqTeZW.svg)](https://asciinema.org/a/Jb8YBbs9eihDMaMiRvNDqTeZW)
+YML
+[![asciicast](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk.svg)](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk)
+## Comparing files with  Plain Format
+[![asciicast](https://asciinema.org/a/laVbPaslO2UFG4iJIFxZvUpRK.svg)](https://asciinema.org/a/laVbPaslO2UFG4iJIFxZvUpRK)
+## Comparing files with  Json Format
+[![asciicast](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk.svg)](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk)
