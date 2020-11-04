@@ -7,9 +7,9 @@ const formatValue = (value) => {
 const plain = (config, path = '') => {
   const result = config.map((diff) => {
     const currentPath = (path) ? path.concat(`.${diff.name}`) : diff.name;
-    switch (diff.change) {
+    switch (diff.type) {
       case 'nested':
-        return plain(diff.value, currentPath);
+        return plain(diff.children, currentPath);
       case 'added':
         return `Property '${currentPath}' was added with value: ${formatValue(diff.value)}\n`;
       case 'deleted':

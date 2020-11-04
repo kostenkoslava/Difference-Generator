@@ -1,13 +1,15 @@
 import _ from 'lodash';
 
-const makeConfig = (name, value, change) => {
-  const config = {
+const makeConfig = (name, value, type) => ((type === 'nested') ? {
+  name,
+  children: value,
+  type,
+}
+  : {
     name,
     value,
-    change,
-  };
-  return config;
-};
+    type,
+  });
 const findDiffs = (before, after) => {
   const beforeKeys = Object.keys(before);
   const afterKeys = Object.keys(after);
@@ -30,7 +32,7 @@ const findDiffs = (before, after) => {
       name: key,
       beforeValue: before[key],
       afterValue: after[key],
-      change: 'changed',
+      type: 'changed',
     };
   });
 };

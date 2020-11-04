@@ -13,9 +13,9 @@ const stylish = (config) => {
     const spaces = 2;
     const indent = spaces * depth;
     const formattedData = data.map((diff) => {
-      switch (diff.change) {
+      switch (diff.type) {
         case 'nested':
-          return `${' '.repeat(indent)}  ${diff.name}: ${iter(diff.value, depth + 2)}\n`;
+          return `${' '.repeat(indent)}  ${diff.name}: ${iter(diff.children, depth + 2)}\n`;
         case 'added':
           return `${' '.repeat(indent)}+ ${diff.name}: ${formatValue(diff.value, indent)}\n`;
         case 'deleted':
