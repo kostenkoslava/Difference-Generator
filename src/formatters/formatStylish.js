@@ -8,7 +8,7 @@ const formatValue = (value, indent) => {
     .join('');
   return `{\n${formattedObject}${' '.repeat((extraSpaces + indent) - 2)}}`;
 };
-const stylish = (config) => {
+const formatStylish = (config) => {
   const iter = (data, depth) => {
     const spaces = 2;
     const indent = spaces * depth;
@@ -30,4 +30,4 @@ const stylish = (config) => {
   };
   return iter(config, 1);
 };
-export default stylish;
+export default formatStylish;
