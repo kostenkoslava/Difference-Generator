@@ -8,11 +8,11 @@ const formatValue = (value, indent) => {
     .join('');
   return `{\n${formattedObject}${' '.repeat((extraSpaces + indent) - 2)}}`;
 };
-const formatStylish = (config) => {
-  const iter = (data, depth) => {
+const formatStylish = (diffTree) => {
+  const iter = (tree, depth) => {
     const spaces = 2;
     const indent = spaces * depth;
-    const formattedData = data.map((diff) => {
+    const formattedData = tree.map((diff) => {
       switch (diff.type) {
         case 'nested':
           return `${' '.repeat(indent)}  ${diff.name}: ${iter(diff.children, depth + 2)}\n`;
@@ -21,13 +21,13 @@ const formatStylish = (config) => {
         case 'deleted':
           return `${' '.repeat(indent)}- ${diff.name}: ${formatValue(diff.value, indent)}\n`;
         case 'changed':
-          return `${' '.repeat(indent)}- ${diff.name}: ${formatValue(diff.beforeValue, indent)}\n${' '.repeat(indent)}+ ${diff.name}: ${formatValue(diff.afterValue, indent)}\n`;
+          return `${' '.repeat(indent)}- ${diff.name}: ${formatValue(diff.file1Value, indent)}\n${' '.repeat(indent)}+ ${diff.name}: ${formatValue(diff.file2Value, indent)}\n`;
         default:
           return `${' '.repeat(indent)}  ${diff.name}: ${diff.value}\n`;
       }
     }).join('');
     return `{\n${formattedData}${' '.repeat(indent - 2)}}`;
   };
-  return iter(config, 1);
+  return iter(diffTree, 1);
 };
 export default formatStylish;

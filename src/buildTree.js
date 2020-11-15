@@ -1,9 +1,7 @@
 import _ from 'lodash';
 
 const findDiffs = (file1, file2) => {
-  const beforeKeys = Object.keys(file1);
-  const afterKeys = Object.keys(file2);
-  const uniqueKeys = _.union(beforeKeys, afterKeys).sort();
+  const uniqueKeys = _.union(Object.keys(file1), Object.keys(file2)).sort();
   return uniqueKeys.map((key) => {
     if (!_.has(file1, key)) {
       return { name: key, value: file2[key], type: 'added' };
@@ -18,8 +16,8 @@ const findDiffs = (file1, file2) => {
     if (!_.isEqual(file1[key], file2[key])) {
       return {
         name: key,
-        beforeValue: file1[key],
-        afterValue: file2[key],
+        file1Value: file1[key],
+        file2Value: file2[key],
         type: 'changed',
       };
     }

@@ -1,25 +1,31 @@
 const formatValue = (value) => {
-  if (typeof value === 'string') {
-    return `'${value}'`;
+  const typeOfValue = (value !== null) ? typeof value : value;
+  switch (typeOfValue) {
+    case 'string':
+      return `'${value}'`;
+    case 'object':
+      return '[complex value]';
+    default:
+      return value;
   }
-  return (typeof value !== 'object' || !value) ? value : '[complex value]';
 };
-const plain = (config, path = '') => {
-  const result = config.map((diff) => {
+const plain = (config) => {
+  const iter = (diffTree, path = '') => diffTree.map((diff) => {
     const currentPath = (path) ? path.concat(`.${diff.name}`) : diff.name;
     switch (diff.type) {
       case 'nested':
-        return plain(diff.children, currentPath);
+        return iter(diff.children, currentPath);
       case 'added':
         return `Property '${currentPath}' was added with value: ${formatValue(diff.value)}\n`;
       case 'deleted':
         return `Property '${currentPath}' was removed\n`;
       case 'changed':
-        return `Property '${currentPath}' was updated. From ${formatValue(diff.beforeValue)} to ${formatValue(diff.afterValue)}\n`;
+        return `Property '${currentPath}' was updated. From ${formatValue(diff.file1Value)} to ${formatValue(diff.file2Value)}\n`;
       default:
     }
     return '';
   }).join('');
-  return result;
+
+  return iter(config);
 };
 export default plain;
