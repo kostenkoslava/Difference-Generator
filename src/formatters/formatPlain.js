@@ -1,31 +1,34 @@
-const formatValue = (value) => {
-  const typeOfValue = (value !== null) ? typeof value : value;
-  switch (typeOfValue) {
-    case 'string':
-      return `'${value}'`;
-    case 'object':
-      return '[complex value]';
-    default:
-      return value;
-  }
-};
-const plain = (config) => {
-  const iter = (diffTree, path = '') => diffTree.map((diff) => {
-    const currentPath = (path) ? path.concat(`.${diff.name}`) : diff.name;
-    switch (diff.type) {
-      case 'nested':
-        return iter(diff.children, currentPath);
-      case 'added':
-        return `Property '${currentPath}' was added with value: ${formatValue(diff.value)}\n`;
-      case 'deleted':
-        return `Property '${currentPath}' was removed\n`;
-      case 'changed':
-        return `Property '${currentPath}' was updated. From ${formatValue(diff.file1Value)} to ${formatValue(diff.file2Value)}\n`;
-      default:
-    }
-    return '';
-  }).join('');
+import _ from 'lodash';
 
-  return iter(config);
+const formatValue = (value) => {
+  if (_.isObject(value)) {
+    return '[complex value]';
+  }
+  if (typeof value === 'string') {
+    return `'${value}'`;
+  }
+  return value;
 };
-export default plain;
+const formatPlain = (diffTree) => {
+  const iter = (tree, path = '') => tree.map((node) => {
+    const currentPath = (path) ? `${path}.${node.name}` : node.name;
+    switch (node.type) {
+      case 'nested':
+        return iter(node.children, currentPath);
+      case 'added':
+        return `Property '${currentPath}' was added with value: ${formatValue(node.value)}`;
+      case 'deleted':
+        return `Property '${currentPath}' was removed`;
+      case 'changed':
+        return `Property '${currentPath}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
+      case 'unchanged':
+        return false;
+      default:
+        throw new Error('Type is not readable!');
+    }
+  }).filter((node) => node)
+    .join('\n');
+
+  return iter(diffTree);
+};
+export default formatPlain;

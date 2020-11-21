@@ -7,11 +7,12 @@ import buildTree from './buildTree.js';
 const getPath = (file) => path.resolve(process.cwd(), file);
 const readFile = (filepath) => fs.readFileSync(getPath(filepath), { encoding: 'utf-8' });
 
+const getFormat = (file) => path.extname(file).slice(1);
+
 const genDiff = (file1Path, file2Path, formatter = 'stylish') => {
-  const fileFormat = path.extname(file1Path).slice(1);
-  const file1Data = parse(readFile(file1Path), fileFormat);
-  const file2Data = parse(readFile(file2Path), fileFormat);
-  const diffTree = buildTree(file1Data, file2Data);
-  return format(formatter)(diffTree);
+  const parsedData1 = parse(readFile(file1Path), getFormat(file1Path));
+  const parsedData2 = parse(readFile(file2Path), getFormat(file2Path));
+  const diffTree = buildTree(parsedData1, parsedData2);
+  return format(diffTree, formatter);
 };
 export default genDiff;

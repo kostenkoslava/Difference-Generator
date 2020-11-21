@@ -1,33 +1,43 @@
-const formatValue = (value, indent) => {
-  if (typeof value !== 'object' || !value) {
-    return value;
+import _ from 'lodash';
+
+const indent = (depth) => '    '.repeat(depth);
+
+const formatValue = (nodeValue, depth) => {
+  if (!_.isObject(nodeValue)) {
+    return nodeValue;
   }
-  const extraSpaces = 4;
-  const entries = Object.entries(value);
-  const formattedObject = entries.map((pair) => `${' '.repeat(indent + extraSpaces)}  ${pair[0]}: ${formatValue(pair[1], (indent + extraSpaces))}\n`)
-    .join('');
-  return `{\n${formattedObject}${' '.repeat((extraSpaces + indent) - 2)}}`;
+
+  const result = Object.keys(nodeValue)
+    .map((key) => {
+      const value = formatValue(nodeValue[key], depth + 1);
+      return `${indent(depth + 2)}${key}: ${value}`;
+    }).join('\n');
+
+  return ['{', result, `${indent(depth + 1)}}`].join('\n');
 };
-const formatStylish = (diffTree) => {
-  const iter = (tree, depth) => {
-    const spaces = 2;
-    const indent = spaces * depth;
-    const formattedData = tree.map((diff) => {
-      switch (diff.type) {
-        case 'nested':
-          return `${' '.repeat(indent)}  ${diff.name}: ${iter(diff.children, depth + 2)}\n`;
-        case 'added':
-          return `${' '.repeat(indent)}+ ${diff.name}: ${formatValue(diff.value, indent)}\n`;
-        case 'deleted':
-          return `${' '.repeat(indent)}- ${diff.name}: ${formatValue(diff.value, indent)}\n`;
+
+export default (diffTree) => {
+  const iter = (tree, depth = 0) => {
+    const result = tree.flatMap((node) => {
+      switch (node.type) {
+        case 'unchanged':
+          return `    ${indent(depth)}${node.name}: ${formatValue(node.value, depth)}`;
         case 'changed':
-          return `${' '.repeat(indent)}- ${diff.name}: ${formatValue(diff.file1Value, indent)}\n${' '.repeat(indent)}+ ${diff.name}: ${formatValue(diff.file2Value, indent)}\n`;
+          return [
+            `  ${indent(depth)}- ${node.name}: ${formatValue(node.value1, depth)}`,
+            `  ${indent(depth)}+ ${node.name}: ${formatValue(node.value2, depth)}`,
+          ];
+        case 'added':
+          return `  ${indent(depth)}+ ${node.name}: ${formatValue(node.value, depth)}`;
+        case 'deleted':
+          return `  ${indent(depth)}- ${node.name}: ${formatValue(node.value, depth)}`;
+        case 'nested':
+          return `${indent(depth + 1)}${node.name}: {\n${iter(node.children, depth + 1)}\n${indent(depth + 1)}}`;
         default:
-          return `${' '.repeat(indent)}  ${diff.name}: ${diff.value}\n`;
+          throw new Error('Type is not readable!');
       }
-    }).join('');
-    return `{\n${formattedData}${' '.repeat(indent - 2)}}`;
+    });
+    return result.join('\n');
   };
-  return iter(diffTree, 1);
+  return `{\n${iter(diffTree)}\n}`;
 };
-export default formatStylish;
