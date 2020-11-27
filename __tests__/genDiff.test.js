@@ -8,10 +8,10 @@ import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const extensions = ['json', 'yml'];
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const getFixtureFile = (name, extension) => getFixturePath(`${name}.${extension}`);
+const getFixtureFile = (name, format) => getFixturePath(`${name}.${format}`);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), { encoding: 'utf-8' });
+const formats = ['json', 'yml'];
 
 describe('comparing two configuration files', () => {
   const expectedResult = {
@@ -19,18 +19,17 @@ describe('comparing two configuration files', () => {
     plain: readFile('plain.txt'),
     json: readFile('json.txt'),
   };
-  test.each(extensions)('%s files', (extension) => {
-    expect(genDiff(getFixtureFile('file1', extension), getFixtureFile('file2', extension)))
-      .toEqual(expectedResult.stylish);
-    expect(genDiff(getFixtureFile('file1', extension), getFixtureFile('file2', extension), 'plain'))
-      .toEqual(expectedResult.plain);
-    expect(genDiff(getFixtureFile('file1', extension), getFixtureFile('file2', extension), 'json'))
-      .toEqual(expectedResult.json);
+  test.each(formats)('%s files', (format) => {
+    const filepath1 = getFixtureFile('file1', format);
+    const filepath2 = getFixtureFile('file2', format);
+    expect(genDiff(filepath1, filepath2)).toEqual(expectedResult.stylish);
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedResult.plain);
+    expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedResult.json);
   });
-  test.each(extensions)('is valid JSON output (%s files)', (extension) => {
+  test.each(formats)('is valid JSON output (%s files)', (format) => {
     expect(() => JSON.parse(genDiff(
-      getFixtureFile('file1', extension),
-      getFixtureFile('file2', extension),
+      getFixtureFile('file1', format),
+      getFixtureFile('file2', format),
       'json',
     ))).not.toThrow();
   });

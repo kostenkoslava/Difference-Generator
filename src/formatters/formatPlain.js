@@ -10,25 +10,24 @@ const formatValue = (value) => {
   return value;
 };
 const formatPlain = (diffTree) => {
-  const iter = (tree, path = '') => tree.map((node) => {
-    const currentPath = (path) ? `${path}.${node.name}` : node.name;
+  const iter = (tree, path = []) => tree.map((node) => {
+    const currentPath = [...path, node.name];
     switch (node.type) {
       case 'nested':
         return iter(node.children, currentPath);
       case 'added':
-        return `Property '${currentPath}' was added with value: ${formatValue(node.value)}`;
+        return `Property '${currentPath.join('.')}' was added with value: ${formatValue(node.value)}`;
       case 'deleted':
-        return `Property '${currentPath}' was removed`;
+        return `Property '${currentPath.join('.')}' was removed`;
       case 'changed':
-        return `Property '${currentPath}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
+        return `Property '${currentPath.join('.')}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
       case 'unchanged':
         return false;
       default:
-        throw new Error('Type is not readable!');
+        throw new Error(`This type (${node.type} is not supported!)`);
     }
-  }).filter((node) => node)
-    .join('\n');
+  }).filter((node) => node).flat();
 
-  return iter(diffTree);
+  return iter(diffTree).join('\n');
 };
 export default formatPlain;
