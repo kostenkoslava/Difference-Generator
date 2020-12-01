@@ -23,6 +23,7 @@ describe('comparing two configuration files', () => {
     const filepath1 = getFixtureFile('file1', format);
     const filepath2 = getFixtureFile('file2', format);
     expect(genDiff(filepath1, filepath2)).toEqual(expectedResult.stylish);
+    expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedResult.stylish);
     expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedResult.plain);
     expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedResult.json);
   });

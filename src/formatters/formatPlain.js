@@ -9,24 +9,27 @@ const formatValue = (value) => {
   }
   return value;
 };
+
+const createPath = (...paths) => paths.filter((path) => path).join('.');
+
 const formatPlain = (diffTree) => {
-  const iter = (tree, path = []) => tree.map((node) => {
-    const currentPath = [...path, node.name];
+  const iter = (nodes, paths) => nodes.flatMap((node) => {
+    const currentPath = createPath(paths, node.name);
     switch (node.type) {
       case 'nested':
         return iter(node.children, currentPath);
       case 'added':
-        return `Property '${currentPath.join('.')}' was added with value: ${formatValue(node.value)}`;
+        return `Property '${currentPath}' was added with value: ${formatValue(node.value)}`;
       case 'deleted':
-        return `Property '${currentPath.join('.')}' was removed`;
+        return `Property '${currentPath}' was removed`;
       case 'changed':
-        return `Property '${currentPath.join('.')}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
+        return `Property '${currentPath}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
       case 'unchanged':
-        return false;
+        return [];
       default:
         throw new Error(`This type (${node.type} is not supported!)`);
     }
-  }).filter((node) => node).flat();
+  });
 
   return iter(diffTree).join('\n');
 };

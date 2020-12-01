@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const buildTree = (obj1, obj2) => {
-  const uniqueKeys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
+  const uniqueKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
   return uniqueKeys.map((key) => {
     if (!_.has(obj1, key)) {
       return { name: key, value: obj2[key], type: 'added' };
