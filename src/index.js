@@ -4,10 +4,10 @@ import parse from './parse.js';
 import format from './formatters/index.js';
 import buildTree from './buildTree.js';
 
-const getPath = (file) => path.resolve(process.cwd(), file);
+const getPath = (filename) => path.resolve(process.cwd(), filename);
 const readFile = (filepath) => fs.readFileSync(getPath(filepath), { encoding: 'utf-8' });
 
-const getFormat = (file) => path.extname(file).slice(1);
+const getFormat = (filename) => path.extname(filename).slice(1);
 
 const genDiff = (file1Path, file2Path, formatter = 'stylish') => {
   const parsedData1 = parse(readFile(file1Path), getFormat(file1Path));
