@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-const makeIndent = (depth, extraSpaces = 2) => ' '.repeat(depth * 4 - extraSpaces);
+const indent = 4;
+const makeIndent = (depth, extraSpaces = 2) => ' '.repeat(depth * indent - extraSpaces);
 
 const formatValue = (nodeValue, depth) => {
   if (!_.isObject(nodeValue)) {
@@ -13,7 +14,7 @@ const formatValue = (nodeValue, depth) => {
       return `${makeIndent(depth)}  ${key}: ${formattedValue}`;
     }).join('\n');
 
-  return `{\n${result}\n${makeIndent(depth, 4)}}`;
+  return `{\n${result}\n${makeIndent(depth, indent)}}`;
 };
 
 export default (diffTree) => {
@@ -37,7 +38,7 @@ export default (diffTree) => {
           throw new Error(`This type (${node.type} is not supported!)`);
       }
     });
-    return `{\n${result.join('\n')}\n${makeIndent(depth, 4)}}`;
+    return `{\n${result.join('\n')}\n${makeIndent(depth, indent)}}`;
   };
   return iter(diffTree, 1);
 };
