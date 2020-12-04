@@ -10,7 +10,7 @@ const formatValue = (value) => {
   return value;
 };
 
-const createPath = (origin, name) => [...origin, name].join('.');
+const getPropertyName = (origin, name) => [...origin, name].join('.');
 
 const formatPlain = (diffTree) => {
   const iter = (nodes, paths) => nodes.flatMap((node) => {
@@ -18,11 +18,11 @@ const formatPlain = (diffTree) => {
       case 'nested':
         return iter(node.children, [...paths, node.name]);
       case 'added':
-        return `Property '${createPath(paths, node.name)}' was added with value: ${formatValue(node.value)}`;
+        return `Property '${getPropertyName(paths, node.name)}' was added with value: ${formatValue(node.value)}`;
       case 'deleted':
-        return `Property '${createPath(paths, node.name)}' was removed`;
+        return `Property '${getPropertyName(paths, node.name)}' was removed`;
       case 'changed':
-        return `Property '${createPath(paths, node.name)}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
+        return `Property '${getPropertyName(paths, node.name)}' was updated. From ${formatValue(node.value1)} to ${formatValue(node.value2)}`;
       case 'unchanged':
         return [];
       default:
