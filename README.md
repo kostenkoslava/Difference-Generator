@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/2dff5cc619f75a9a1adf/maintainability)](https://codeclimate.com/github/kostenkoslava/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2dff5cc619f75a9a1adf/test_coverage)](https://codeclimate.com/github/kostenkoslava/frontend-project-lvl2/test_coverage)
 ## Description
-The utilite compares two files (.json, .yml) and generates the difference.
+"Difference Generator" is used to compare files (.json, .yml) and generates the difference. You can use package as command-line utility or library.
 ## How to install
 You must have last version of NodeJS before install.
 1. Clone repository
@@ -18,7 +18,7 @@ make install
 ```sh 
 genDiff -h 
 ```
-[![asciicast](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN.svg)](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN)
+[![asciicast](https://asciinema.org/a/lTKRQIve1OTIQ6EAx1Bl7i1KQ.svg)](https://asciinema.org/a/lTKRQIve1OTIQ6EAx1Bl7i1KQ)
 
 ## Comparing files with default Stylish Format
 ### JSON
