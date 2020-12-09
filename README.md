@@ -7,20 +7,17 @@ The utilite compares two files (.json, .yml) and generates the difference.
 ## How to install
 You must have last version of NodeJS before install.
 ```sh
-sudo npm install gendiff-kostenko -g
-
-```
-```sh
-npm install gendiff-kostenko
-
+git clone https://github.com/kostenkoslava/frontend-project-lvl2.git
+.
+make install
 ```
 
 [![asciicast](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN.svg)](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN)
 
 ## Comparing files with default Stylish Format
-JSON
+### JSON
 [![asciicast](https://asciinema.org/a/Jb8YBbs9eihDMaMiRvNDqTeZW.svg)](https://asciinema.org/a/Jb8YBbs9eihDMaMiRvNDqTeZW)
-YML
+### YML
 [![asciicast](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk.svg)](https://asciinema.org/a/NgvhrayTnfLX7fjYkIB7mWvFk)
 ## Comparing files with  Plain Format
 [![asciicast](https://asciinema.org/a/laVbPaslO2UFG4iJIFxZvUpRK.svg)](https://asciinema.org/a/laVbPaslO2UFG4iJIFxZvUpRK)
