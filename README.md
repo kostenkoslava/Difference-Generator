@@ -18,7 +18,7 @@ make install
 ```sh 
 genDiff -h 
 ```
-[![asciicast](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN.svg)](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN)
+[![asciicast](https://asciinema.org/a/lTKRQIve1OTIQ6EAx1Bl7i1KQ.svg)](https://asciinema.org/a/lTKRQIve1OTIQ6EAx1Bl7i1KQ)
 
 ## Comparing files with default Stylish Format
 ### JSON
