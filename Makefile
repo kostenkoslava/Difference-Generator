@@ -1,5 +1,5 @@
 setup:
-       npm install
+      npm install
 install:
       npm ci
       sudo npm link
