@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import { describe, expect } from '@jest/globals';
 import path from 'path';
 import fs from 'fs';
