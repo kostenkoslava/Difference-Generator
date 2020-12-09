@@ -6,12 +6,18 @@
 The utilite compares two files (.json, .yml) and generates the difference.
 ## How to install
 You must have last version of NodeJS before install.
+1. Clone repository
 ```sh
 git clone https://github.com/kostenkoslava/frontend-project-lvl2.git
-.
+```
+2. Install npm. Use command below
+```sh
 make install
 ```
-
+3. Now you can use package. To see help type command 
+```sh 
+genDiff -h 
+```
 [![asciicast](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN.svg)](https://asciinema.org/a/SouB8yaLN2rNSZhYHBeLNFLGN)
 
 ## Comparing files with default Stylish Format
